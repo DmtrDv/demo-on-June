@@ -62,7 +62,7 @@
             // 
             this.login_textBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.login_textBox.Location = new System.Drawing.Point(168, 34);
-            this.login_textBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.login_textBox.Margin = new System.Windows.Forms.Padding(4);
             this.login_textBox.Name = "login_textBox";
             this.login_textBox.Size = new System.Drawing.Size(204, 35);
             this.login_textBox.TabIndex = 2;
@@ -71,7 +71,7 @@
             // 
             this.password_textBox.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.password_textBox.Location = new System.Drawing.Point(168, 84);
-            this.password_textBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.password_textBox.Margin = new System.Windows.Forms.Padding(4);
             this.password_textBox.Name = "password_textBox";
             this.password_textBox.PasswordChar = '*';
             this.password_textBox.Size = new System.Drawing.Size(204, 35);
@@ -84,7 +84,7 @@
             this.enter_button.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.enter_button.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.enter_button.Location = new System.Drawing.Point(41, 158);
-            this.enter_button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.enter_button.Margin = new System.Windows.Forms.Padding(4);
             this.enter_button.Name = "enter_button";
             this.enter_button.Size = new System.Drawing.Size(144, 46);
             this.enter_button.TabIndex = 4;
@@ -96,7 +96,7 @@
             // 
             this.guest_button.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.guest_button.Location = new System.Drawing.Point(268, 158);
-            this.guest_button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.guest_button.Margin = new System.Windows.Forms.Padding(4);
             this.guest_button.Name = "guest_button";
             this.guest_button.Size = new System.Drawing.Size(144, 46);
             this.guest_button.TabIndex = 5;
@@ -115,8 +115,10 @@
             this.Controls.Add(this.login_textBox);
             this.Controls.Add(this.password_label);
             this.Controls.Add(this.login_label);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(471, 285);
+            this.MinimumSize = new System.Drawing.Size(471, 285);
             this.Name = "AuthorizationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Авторизация";

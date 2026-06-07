@@ -56,7 +56,7 @@ namespace DE_Forms
             }
             if (product.stockQuantity <= 0)
             {
-                stockQuantity_label.ForeColor = Color.LightBlue;
+                stockQuantity_label.ForeColor = Color.Blue;
             }
             if (discount > 15)
             {
@@ -78,9 +78,13 @@ namespace DE_Forms
                 {
                     try
                     {
-                        product_pictureBox.Image?.Dispose();
-                        product_pictureBox.Image = Image.FromFile(imagePath);
+                        using (var fs = new FileStream(imagePath, FileMode.Open, FileAccess.Read))
+                        using (var tempImage = Image.FromStream(fs))
+                        {
+                            product_pictureBox.Image = new Bitmap(tempImage);
+                        }
                         return;
+
                     }
                     catch (Exception ex)
                     {
