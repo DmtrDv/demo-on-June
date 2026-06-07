@@ -15,19 +15,15 @@ namespace DE_Forms
     {
         private List<Products> allProducts_;
         private string userRole_;
-        public WindowWatchingForm(User user)
+        private AuthorizationForm authorizationForm_;
+        public WindowWatchingForm(User user, AuthorizationForm authorization)
         {
             InitializeComponent();
-            if (user.role == "Гость")
-            {
-                this.Text = $"Окно просмотра: {user.role}";
-            }
-            else
-            {
-                this.Text = $"Окно просмотра: {user.fio}";
-            }
+            this.Text = $"Окно просмотра: {user.role}";
+            FioUser_label.Text = user.fio;
             LoadProduct();
             userRole_ = user.role;
+            authorizationForm_ = authorization;
         }
         private void LoadProduct()
         {
@@ -35,7 +31,7 @@ namespace DE_Forms
             {
                 //получаем данные из бд
                 allProducts_ = Database.GetAllProducts();
-                // отображаем товары
+                // отображаем 
                 ShowOnDisplayProducts(allProducts_);
             }
             catch (Exception ex)
@@ -53,21 +49,21 @@ namespace DE_Forms
             }
             foreach (Products product in products)
             {
-                var card = new ProductCard();
+                var card = new Card();
                 card.SetProduct(product);
                 MainPanel_flowLayoutPanel.Controls.Add(card);
             }
         }
 
-        private void findText_toolStripTextBox_TextChanged(object sender, EventArgs e)
+        private void findText_textBox_TextChanged_1(object sender, EventArgs e)
         {
-            string searchText = findText_toolStripTextBox.Text.ToLower().Trim();
+            string searchText = findText_textBox.Text.ToLower().Trim();
             if (string.IsNullOrEmpty(searchText))
             {
                 ShowOnDisplayProducts(allProducts_);
             }
             else
-            { 
+            {
                 List<Products> needProducts = new List<Products>();
                 foreach (Products product in allProducts_)
                 {
@@ -94,10 +90,6 @@ namespace DE_Forms
             return searchableText;
         }
 
-        private void WindowWatchingForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Application.Exit();
-        }
         private bool lowUser()
         {
             return userRole_ == "Гость" || userRole_ == "Авторизированный клиент" || userRole_ == null;
@@ -107,9 +99,21 @@ namespace DE_Forms
         {
             if (lowUser())
             {
-                findText_toolStripTextBox.Enabled = false;
-                find_toolStripLabel.Text = "Поиск Вам недоступеyн";
+                findText_textBox.Enabled = false;
+                findText_textBox.Location = new Point(150, 6);
+                find_label.Text = "Поиск Вам недоступеyн";
             }
+        }
+
+        private void back_button_Click(object sender, EventArgs e)
+        {
+            authorizationForm_.Show();
+            this.Dispose();
+        }
+
+        private void WindowWatchingForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

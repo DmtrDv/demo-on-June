@@ -12,16 +12,11 @@ using System.Windows.Forms;
 
 namespace DE_Forms
 {
-    public partial class ProductCard : UserControl
+    public partial class Card : UserControl
     {
-        public ProductCard()
+        public Card()
         {
             InitializeComponent();
-        }
-
-        private void ProductCard_Load(object sender, EventArgs e)
-        {
-
         }
         public void SetProduct(Products product)
         {
@@ -46,26 +41,27 @@ namespace DE_Forms
                 double newPrice = price * (100 - discount) / 100;
 
                 //старая цена
-                price_label.Text = "Цена: " + price.ToString("C");
+                price_label.Text = "Цена: " + price.ToString() + " Руб.";
                 price_label.Font = new Font(price_label.Font, FontStyle.Strikeout);
                 price_label.ForeColor = Color.Red;
                 //новая цена
-                newPrice_label.Text = newPrice.ToString("C");
+                newPrice_label.Text = newPrice.ToString() + " Руб.";
                 newPrice_label.ForeColor = Color.Black;
             }
             else
             {
-                price_label.Text = "Цена: " + price.ToString("C");
+                price_label.Text = "Цена: " + price.ToString() + " Руб.";
                 price_label.Font = new Font(price_label.Font, FontStyle.Regular);
                 price_label.ForeColor = Color.Black;
             }
             if (product.stockQuantity <= 0)
             {
-                this.BackColor = Color.LightBlue;
+                stockQuantity_label.ForeColor = Color.LightBlue;
             }
-            else if (discount > 15)
+            if (discount > 15)
             {
-                this.BackColor= Color.FromArgb(0x2E, 0x8B, 0x57);
+                // цвет фона при скидке >
+                this.BackColor = Color.SeaGreen;
             }
             else
             {
@@ -82,8 +78,8 @@ namespace DE_Forms
                 {
                     try
                     {
-                        pictureBox1.Image?.Dispose();
-                        pictureBox1.Image = Image.FromFile(imagePath);
+                        product_pictureBox.Image?.Dispose();
+                        product_pictureBox.Image = Image.FromFile(imagePath);
                         return;
                     }
                     catch (Exception ex)
@@ -101,20 +97,19 @@ namespace DE_Forms
             {
                 try
                 {
-                    pictureBox1.Image?.Dispose();
-                    pictureBox1.Image = Image.FromFile(defaultImagePath);
+                    product_pictureBox.Image?.Dispose();
+                    product_pictureBox.Image = Image.FromFile(defaultImagePath);
                 }
                 catch (Exception ex)
                 {
                     System.Diagnostics.Debug.WriteLine($"Ошибка загрузки заглушки {defaultImagePath}: {ex.Message}");
-                    pictureBox1.Image = null;
+                    product_pictureBox.Image = null;
                 }
             }
             else
             {
-                // Если даже заглушка отсутствует – просто очищаем PictureBox
                 System.Diagnostics.Debug.WriteLine($"Файл заглушки не найден: {defaultImagePath}");
-                pictureBox1.Image = null;
+                product_pictureBox.Image = null;
             }
         }
     }

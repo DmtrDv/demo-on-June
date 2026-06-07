@@ -13,7 +13,6 @@ namespace DE_Forms
 {
     public partial class AuthorizationForm: Form
     {
-      
         public AuthorizationForm()
         {
             InitializeComponent();
@@ -31,7 +30,7 @@ namespace DE_Forms
             User user = Database.Authorization(userInputLogin, userInputPassword);
             if (user != null)
             {
-                WindowWatchingForm windowWatchingForm = new WindowWatchingForm(user);
+                WindowWatchingForm windowWatchingForm = new WindowWatchingForm(user, this);
                 windowWatchingForm.Show();
                 this.Hide();
             }
@@ -44,7 +43,7 @@ namespace DE_Forms
         private void guest_button_Click(object sender, EventArgs e)
         {
             User user = new User() { role = "Гость", fio = "", login = "", password = "" };
-            WindowWatchingForm windowWatchingForm = new WindowWatchingForm(user);
+            WindowWatchingForm windowWatchingForm = new WindowWatchingForm(user, this);
             windowWatchingForm.Show();
             this.Hide();
         }

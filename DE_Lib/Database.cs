@@ -9,12 +9,9 @@ namespace DE_Lib
 {
     public class Database
     {
-        //
-        //осуществление интеграции программных модулей , с 02,03 по 22,03
-        //
         private static string connectionString = "Server=127.0.0.1; Database=shop;UserId=root;Password=vertrigo;Port=3306;Charset=utf8 ";
 
-        public static List<string> GetAllLogins()
+       /* public static List<string> GetAllLogins()
         {
             List<string> logins = new List<string>();
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -31,7 +28,7 @@ namespace DE_Lib
                 }
                 return logins;
             }
-        }
+        }*/
         public static User Authorization(string login, string password)
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
