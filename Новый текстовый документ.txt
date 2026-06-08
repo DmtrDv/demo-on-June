@@ -1,0 +1,116 @@
+Нужно создать базу данных для демонстрационного экзамена с таблицами и их полями которые приведены ниже, и заполнить эти таблицы данными из таблиц Excel 
+TABLE `orders` (
+  `order_id` int(11) NOT NULL,
+  `order_date` datetime NOT NULL,
+  `delivery_date` datetime DEFAULT NULL,
+  `pickup_point_id` int(11) NOT NULL,
+  `customer_name` int(10) NOT NULL,
+  `pickup_code` varchar(20) NOT NULL,
+  `status` varchar(50) NOT NULL
+);
+TABLE `order_items` (
+  `id` int(10) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `article` varchar(50) NOT NULL,
+  `quantity` int(11) NOT NULL
+);
+TABLE `pickup_points` (
+  `id` int(10) NOT NULL,
+  `mail_index` int(11) NOT NULL,
+  `address` varchar(255) NOT NULL
+);
+TABLE `tovar` (
+  `article` varchar(50) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `unit` varchar(20) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `supplier` varchar(255) DEFAULT NULL,
+  `manufacturer` varchar(255) DEFAULT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `discount` int(11) DEFAULT NULL,
+  `stock_quantity` int(11) DEFAULT NULL,
+  `description` text,
+  `photo` varchar(255) DEFAULT NULL
+);
+TABLE `users` (
+  `id` int(10) NOT NULL,
+  `role` varchar(50) NOT NULL,
+  `full_name` varchar(255) NOT NULL,
+  `login` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+);
+--
+-- Индексы таблицы `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`order_id`),
+  ADD KEY `pickup_point_id` (`pickup_point_id`),
+  ADD KEY `customer_name` (`customer_name`);
+
+--
+-- Индексы таблицы `order_items`
+--
+ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `article` (`article`),
+  ADD KEY `order_id` (`order_id`);
+
+--
+-- Индексы таблицы `pickup_points`
+--
+ALTER TABLE `pickup_points`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `address` (`address`);
+
+--
+-- Индексы таблицы `tovar`
+--
+ALTER TABLE `tovar`
+  ADD PRIMARY KEY (`article`);
+
+--
+-- Индексы таблицы `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
+--
+
+--
+-- AUTO_INCREMENT для таблицы `order_items`
+--
+ALTER TABLE `order_items`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT для таблицы `pickup_points`
+--
+ALTER TABLE `pickup_points`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT для таблицы `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`pickup_point_id`) REFERENCES `pickup_points` (`id`),
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`customer_name`) REFERENCES `users` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `order_items`
+--
+ALTER TABLE `order_items`
+  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`article`) REFERENCES `tovar` (`article`) ON UPDATE CASCADE;
+COMMIT;
