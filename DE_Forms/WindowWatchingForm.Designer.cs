@@ -39,6 +39,7 @@
             this.Filter_label = new System.Windows.Forms.Label();
             this.Filtert_comboBox = new System.Windows.Forms.ComboBox();
             this.AddProduct_button = new System.Windows.Forms.Button();
+            this.OpenOrders_button = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -172,11 +173,24 @@
             this.AddProduct_button.UseVisualStyleBackColor = false;
             this.AddProduct_button.Click += new System.EventHandler(this.AddProduct_button_Click);
             // 
+            // OpenOrders_button
+            // 
+            this.OpenOrders_button.BackColor = System.Drawing.Color.Gainsboro;
+            this.OpenOrders_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.OpenOrders_button.Location = new System.Drawing.Point(165, 33);
+            this.OpenOrders_button.Name = "OpenOrders_button";
+            this.OpenOrders_button.Size = new System.Drawing.Size(114, 35);
+            this.OpenOrders_button.TabIndex = 8;
+            this.OpenOrders_button.Text = "Заказы";
+            this.OpenOrders_button.UseVisualStyleBackColor = false;
+            this.OpenOrders_button.Click += new System.EventHandler(this.OpenOrders_button_Click);
+            // 
             // WindowWatchingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.OpenOrders_button);
             this.Controls.Add(this.AddProduct_button);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.back_button);
@@ -209,5 +223,6 @@
         private System.Windows.Forms.Label Filter_label;
         private System.Windows.Forms.ComboBox Filtert_comboBox;
         private System.Windows.Forms.Button AddProduct_button;
+        private System.Windows.Forms.Button OpenOrders_button;
     }
 }

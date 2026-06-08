@@ -11,24 +11,6 @@ namespace DE_Lib
     {
         private static string connectionString = "Server=127.0.0.1; Database=shop;UserId=root;Password=vertrigo;Port=3306;Charset=utf8 ";
 
-       /* public static List<string> GetAllLogins()
-        {
-            List<string> logins = new List<string>();
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                conn.Open();
-                string sql = "SELECT login FROM users";
-                MySqlCommand command = new MySqlCommand(sql, conn);
-                using (MySqlDataReader reader = command.ExecuteReader()) 
-                {
-                    while (reader.Read())
-                    {
-                        logins.Add(reader.GetString("login"));
-                    }
-                }
-                return logins;
-            }
-        }*/
         public static User Authorization(string login, string password)
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -87,24 +69,6 @@ namespace DE_Lib
             }
             return products;
         }
-        /*public static List<string> GetSuppliers()
-        {
-            List<string> list = new List<string>();
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                conn.Open();
-                string query = "SELECT DISTINCT supplier FROM tovar WHERE supplier IS NOT NULL AND supplier != ''";
-                using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                using (MySqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        list.Add(reader.ToString());
-                    }
-                }
-            }
-            return list;
-        }*/
 
         public static List<string> GetCategories()
         {
@@ -223,21 +187,43 @@ namespace DE_Lib
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
-                string query = "DELETE FROM tovar WHERE article = @article";
-                using (MySqlCommand command = new MySqlCommand(query, conn))
+                string sql = "DELETE FROM tovar WHERE article = @article";
+                using (MySqlCommand command = new MySqlCommand(sql, conn))
                 {
                     command.Parameters.AddWithValue("@article", article);
                     command.ExecuteNonQuery();
                 }
             }
         }
-        /* public static List<Orders> GetAllOrders()
-         {
-             List <Orders> orders = new List<Orders>();
-             using (MySqlConnection conn = new MySqlConnection(connectionString))
-             {
+        public static List<Orders> GetAllOrders()
+        {
+            List <Orders> orders = new List<Orders>();
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string sql = @"SELECT order_items.article, orders.status, pickup_points.address,
+                                      orders.order_date, orders.delivery_date
+                               FROM orders
+                               JOIN order_items ON orders.order_id = order_items.order_id
+                               JOIN pickup_points ON orders.pickup_point_id = pickup_points.id";
+                MySqlCommand command = new MySqlCommand(sql, conn);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        orders.Add(new Orders
+                        {
+                            article = reader.GetString("article"),
+                            status = reader.GetString("status"),
+                            adress = reader.GetString("address"),
+                            orderDate = reader.GetDateTime("order_date"),
+                            deliveryDate = reader.GetDateTime("delivery_date")
+                        });
 
-             }
-         }*/
+                    }
+                }
+            }
+            return orders;
+        }
     }
 }

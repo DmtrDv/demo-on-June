@@ -114,6 +114,7 @@ namespace DE_Forms
                 Sort_label.Text = "Сортировка недоступна";
 
                 AddProduct_button.Enabled = false;
+                OpenOrders_button.Enabled = false;
             }
             if (MiddleUser())
             {
@@ -261,6 +262,12 @@ namespace DE_Forms
                 LoadProduct();
                 UpdateDisplay();
             }
+        }
+
+        private void OpenOrders_button_Click(object sender, EventArgs e)
+        {
+            OrdersForm ordersForm = new OrdersForm();
+            ordersForm.ShowDialog();
         }
     }
 }
